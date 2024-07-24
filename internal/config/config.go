@@ -23,7 +23,6 @@ type Config struct {
 	CloudinaryAPIKey       string
 	CloudinaryAPISecret    string
 	CloudinaryUploadPreset string
-	ConnectionString       string
 }
 
 var ENV = initConfig()
@@ -51,7 +50,6 @@ func initConfig() Config {
 		CloudinaryAPIKey:       getEnv("CLOUDINARY_API_KEY", "myApiKey"),
 		CloudinaryAPISecret:    getEnv("CLOUDINARY_API_SECRET", "myApiSecret"),
 		CloudinaryUploadPreset: getEnv("CLOUDINARY_UPLOAD_PRESET", "myUploadPreset"),
-		ConnectionString:       getEnv("CONNECTION_STRING", "con_str"),
 	}
 }
 

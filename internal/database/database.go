@@ -1,7 +1,7 @@
 package database
 
 import (
-	// "fmt"
+	"fmt"
 
 	"github.com/topboyasante/mrkt-api/api/v1/models"
 	"github.com/topboyasante/mrkt-api/api/v1/utils"
@@ -16,11 +16,7 @@ var (
 )
 
 func InitDB() error {
-	// Use this in test mode
-	// dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=disable", config.ENV.DBUser, config.ENV.DBPassword, config.ENV.DBHost, config.ENV.DBPort, config.ENV.DBName)
-
-	// Use this in live mode
-	dsn := config.ENV.ConnectionString
+	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?pgbouncer=true", config.ENV.DBUser, config.ENV.DBPassword, config.ENV.DBHost, config.ENV.DBPort, config.ENV.DBName)
 
 	var err error
 
