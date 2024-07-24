@@ -70,7 +70,7 @@ func (s *userService) ChangePassword(id string, data *dto.ChangePasswordRequest)
 		email.EmailConfig,
 		"Nana from MRKT",
 		"Activate Your Account",
-		"../web/change-password.html",
+		"api/v1/web/change-password.html",
 		struct {
 			Name      string
 			AuthToken int
