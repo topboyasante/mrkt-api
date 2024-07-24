@@ -30,7 +30,6 @@ var ENV = initConfig()
 
 func initConfig() Config {
 
-	// Loads the .env file into ENV for the getEnv() function to read
 	err := godotenv.Load()
 	if err != nil {
 		log.Printf("unable to load .env")
