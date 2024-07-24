@@ -118,7 +118,7 @@ func (s *authService) SignUp(r dto.SignUpRequest) (*dto.SignUpResponse, error) {
 		email.EmailConfig,
 		"Nana from MRKT",
 		"Activate Your Account",
-		"web/activate-account.html",
+		"../web/activate-account.html",
 		struct {
 			Name      string
 			AuthToken int
@@ -195,7 +195,7 @@ func (s *authService) ForgotPassword(forgotPassword dto.TokenRequest) error {
 		email.EmailConfig,
 		"Nana from MRKT",
 		"Forgot my Password",
-		"web/reset-password.html",
+		"../web/reset-password.html",
 		struct {
 			Name      string
 			AuthToken int

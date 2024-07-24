@@ -15,7 +15,7 @@ func (f *CustomFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	if entry.HasCaller() {
 		file = fmt.Sprintf("%s:%d", entry.Caller.File, entry.Caller.Line)
 	}
-	entry.Message = fmt.Sprintf("ERROR: %s %s", entry.Message, file)
+	entry.Message = fmt.Sprintf("%s %s", entry.Message, file)
 
 	return f.Formatter.Format(entry)
 }
