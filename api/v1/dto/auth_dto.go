@@ -1,32 +1,35 @@
 package dto
 
-import "time"
+import (
+	"time"
+)
 
 type SignUpRequest struct {
-	FirstName   string `json:"first_name" form:"first_name"`
-	LastName    string `json:"last_name" form:"last_name"`
-	Email       string `json:"email" form:"email"`
-	PhoneNumber string `json:"phone_number" form:"phone_number"`
-	CountryCode string `json:"country_code" form:"country_code"`
-	CallingCode string `json:"calling_code" form:"calling_code"`
-	Password    string `json:"password" form:"password"`
+	FirstName   string `json:"first_name" form:"first_name" validate:"required"`
+	LastName    string `json:"last_name" form:"last_name" validate:"required"`
+	Email       string `json:"email" form:"email" validate:"required,email"`
+	PhoneNumber string `json:"phone_number" form:"phone_number" validate:"required"`
+	CountryCode string `json:"country_code" form:"country_code" validate:"required,len=2"`
+	CallingCode string `json:"calling_code" form:"calling_code" validate:"required,max=4"`
+	Password    string `json:"password" form:"password" validate:"required,min=8"`
 }
+
 type UpdateUserRequest struct {
-	FirstName   string `json:"first_name" form:"first_name"`
-	LastName    string `json:"last_name" form:"last_name"`
-	Email       string `json:"email" form:"email"`
-	PhoneNumber string `json:"phone_number" form:"phone_number"`
-	CountryCode string `json:"country_code" form:"country_code"`
-	CallingCode string `json:"calling_code" form:"calling_code"`
+	FirstName   string `json:"first_name" form:"first_name" validate:"required"`
+	LastName    string `json:"last_name" form:"last_name" validate:"required"`
+	Email       string `json:"email" form:"email" validate:"required,email"`
+	PhoneNumber string `json:"phone_number" form:"phone_number" validate:"required"`
+	CountryCode string `json:"country_code" form:"country_code" validate:"required,len=2"`
+	CallingCode string `json:"calling_code" form:"calling_code" validate:"required,max=4"`
 }
 
 type SignInRequest struct {
-	Email    string `json:"email" form:"email"`
-	Password string `json:"password" form:"password"`
+	Email    string `json:"email" form:"email" validate:"required,email"`
+	Password string `json:"password" form:"password" validate:"required,min=8"`
 }
 
 type TokenRequest struct {
-	Email string `json:"email" form:"email"`
+	Email string `json:"email" form:"email" validate:"required,email"`
 }
 
 type SignUpResponse struct {
@@ -51,7 +54,7 @@ type SignInResponse struct {
 }
 
 type RefreshAccessTokenRequest struct {
-	RefreshToken string `json:"refresh_token"`
+	RefreshToken string `json:"refresh_token" validate:"required"`
 }
 
 type RefreshAccessTokenResponse struct {
@@ -61,17 +64,17 @@ type RefreshAccessTokenResponse struct {
 }
 
 type ActivateAccountRequest struct {
-	Email     string `json:"email"`
-	AuthToken int    `json:"auth_token"`
+	Email     string `json:"email" validate:"required,email"`
+	AuthToken int    `json:"auth_token" validate:"required"`
 }
 
 type ChangePasswordRequest struct {
-	PrevPassword string `json:"prev_password" form:"prev_password"`
-	NewPassword  string `json:"new_password" form:"new_password"`
+	PrevPassword string `json:"prev_password" form:"prev_password" validate:"required,min=8"`
+	NewPassword  string `json:"new_password" form:"new_password" validate:"required,min=8"`
 }
 
 type ResetPasswordRequest struct {
-	Email       string `json:"email"`
-	AuthToken   int    `json:"auth_token"`
-	NewPassword string `json:"new_password"`
+	Email       string `json:"email" validate:"required,email"`
+	AuthToken   int    `json:"auth_token" validate:"required"`
+	NewPassword string `json:"new_password" validate:"required,min=8"`
 }
