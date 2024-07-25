@@ -65,12 +65,11 @@ func (s *userService) ChangePassword(id string, data *dto.ChangePasswordRequest)
 		return nil, err
 	}
 
-
 	err = email.SendMailWithSMTP(
 		email.EmailConfig,
 		"Nana from MRKT",
 		"Activate Your Account",
-		"api/v1/web/change-password.html",
+		"web/change-password.html",
 		struct {
 			Name      string
 			AuthToken int
