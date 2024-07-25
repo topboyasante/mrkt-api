@@ -9,8 +9,8 @@ type User struct {
 	FirstName   string    `gorm:"column:first_name;not null" json:"first_name,omitempty"`
 	LastName    string    `gorm:"column:last_name;not null" json:"last_name,omitempty"`
 	Email       string    `gorm:"column:email;unique;not null" json:"email,omitempty"`
-	CountryCode string    `gorm:"column:country_code;unique;not null" json:"country_code,omitempty"`
-	CallingCode string    `gorm:"column:calling_code;unique;not null" json:"calling_code,omitempty"`
+	CountryCode string    `gorm:"column:country_code;not null" json:"country_code,omitempty"`
+	CallingCode string    `gorm:"column:calling_code;not null" json:"calling_code,omitempty"`
 	PhoneNumber string    `gorm:"column:phone_number;unique;not null" json:"phone_number,omitempty"`
 	Password    string    `gorm:"column:password;not null" json:"password,omitempty"`
 	CreatedAt   time.Time `gorm:"column:created_at" json:"created_at,omitempty"`
