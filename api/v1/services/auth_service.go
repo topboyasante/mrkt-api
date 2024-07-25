@@ -86,6 +86,19 @@ func (s *authService) SignUp(r dto.SignUpRequest) (*dto.SignUpResponse, error) {
 		return nil, err
 	}
 
+	data, err := s.repo.GetPartialsByIdentifier("email", r.Email)
+	if err != nil {
+		return nil, err
+	}
+
+	if data.Email == r.Email {
+		return nil, errors.New("user with provided email exists")
+	}
+
+	if data.PhoneNumber == r.PhoneNumber {
+		return nil, errors.New("user with provided phone number exists")
+	}
+
 	hashedPassword, err := auth.HashPassword(r.Password)
 	if err != nil {
 		return nil, err
@@ -98,6 +111,8 @@ func (s *authService) SignUp(r dto.SignUpRequest) (*dto.SignUpResponse, error) {
 		PhoneNumber: r.PhoneNumber,
 		Email:       r.Email,
 		Password:    string(hashedPassword),
+		CountryCode: r.CountryCode,
+		CallingCode: r.CallingCode,
 		AuthToken:   0,
 	}
 

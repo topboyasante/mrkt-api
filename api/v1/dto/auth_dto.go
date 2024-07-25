@@ -7,7 +7,8 @@ type SignUpRequest struct {
 	LastName    string `json:"last_name" form:"last_name"`
 	Email       string `json:"email" form:"email"`
 	PhoneNumber string `json:"phone_number" form:"phone_number"`
-	
+	CountryCode string `json:"country_code" form:"country_code"`
+	CallingCode string `json:"calling_code" form:"calling_code"`
 	Password    string `json:"password" form:"password"`
 }
 type UpdateUserRequest struct {
@@ -15,6 +16,8 @@ type UpdateUserRequest struct {
 	LastName    string `json:"last_name" form:"last_name"`
 	Email       string `json:"email" form:"email"`
 	PhoneNumber string `json:"phone_number" form:"phone_number"`
+	CountryCode string `json:"country_code" form:"country_code"`
+	CallingCode string `json:"calling_code" form:"calling_code"`
 }
 
 type SignInRequest struct {

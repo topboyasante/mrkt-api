@@ -106,6 +106,13 @@ func (s *userService) UpdateUserDetails(id string, data *dto.UpdateUserRequest) 
 	if data.Email != "" {
 		user.Email = data.Email
 	}
+	if data.CountryCode != "" {
+		user.CountryCode = data.CountryCode
+	}
+	if data.CallingCode != "" {
+		user.CallingCode = data.CallingCode
+	}
+	
 	res, err := s.repo.Update(user)
 	if err != nil {
 		utils.Logger().Error(err)
