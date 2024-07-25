@@ -86,16 +86,11 @@ func (s *authService) SignUp(r dto.SignUpRequest) (*dto.SignUpResponse, error) {
 		return nil, err
 	}
 
-	data, err := s.repo.GetPartialsByIdentifier("email", r.Email)
-	if err != nil {
-		return nil, err
-	}
-
-	if data.Email == r.Email {
+	if !auth.IsEmailUnique(r.Email) {
 		return nil, errors.New("user with provided email exists")
 	}
 
-	if data.PhoneNumber == r.PhoneNumber {
+	if !auth.IsPhoneNumberUnique(r.PhoneNumber) {
 		return nil, errors.New("user with provided phone number exists")
 	}
 

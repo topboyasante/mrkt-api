@@ -44,3 +44,9 @@ func IsEmailUnique(email string) bool {
 	res := database.DB.Where("email = ?", email).First(&user)
 	return res.Error == gorm.ErrRecordNotFound
 }
+
+func IsPhoneNumberUnique(phone_number string) bool {
+	var user models.User
+	res := database.DB.Where("phone_number = ?", phone_number).First(&user)
+	return res.Error == gorm.ErrRecordNotFound
+}
