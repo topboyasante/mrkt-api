@@ -12,6 +12,8 @@ WORKDIR /app/cmd
 
 RUN go build -o /app/main .
 
+RUN ls -l /app
+
 WORKDIR /app
 
 EXPOSE 8080

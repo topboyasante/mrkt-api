@@ -17,8 +17,6 @@ services:
   api:
     build: .
     container_name: mrkt_api
-    volumes:
-      - .:/app
     ports:
       - 8080:8080
     env_file:

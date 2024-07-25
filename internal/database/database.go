@@ -25,7 +25,7 @@ func InitDB() error {
 		PreferSimpleProtocol: true,
 	}), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
-			SingularTable: true,
+			SingularTable: false,
 		},
 	})
 
