@@ -228,7 +228,7 @@ func (s *authService) ResetPassword(resetPassword dto.ResetPasswordRequest) erro
 		return errors.New("user does not exist")
 	}
 
-	if usr.AuthToken == resetPassword.AuthToken {
+	if usr.AuthToken != resetPassword.AuthToken {
 		return errors.New("token is invalid")
 	}
 
