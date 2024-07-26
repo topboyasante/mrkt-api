@@ -9,7 +9,6 @@ type SignUpRequest struct {
 	LastName    string `json:"last_name" form:"last_name" validate:"required"`
 	Email       string `json:"email" form:"email" validate:"required,email"`
 	PhoneNumber string `json:"phone_number" form:"phone_number" validate:"required"`
-	CountryCode string `json:"country_code" form:"country_code" validate:"required,len=2"`
 	Password    string `json:"password" form:"password" validate:"required,min=8"`
 }
 
@@ -18,7 +17,6 @@ type UpdateUserRequest struct {
 	LastName    string `json:"last_name" form:"last_name" validate:"required"`
 	Email       string `json:"email" form:"email" validate:"required,email"`
 	PhoneNumber string `json:"phone_number" form:"phone_number" validate:"required"`
-	CountryCode string `json:"country_code" form:"country_code" validate:"required,len=2"`
 }
 
 type SignInRequest struct {
