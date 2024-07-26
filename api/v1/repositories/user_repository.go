@@ -44,7 +44,7 @@ func (r *userRepository) GetByIdentifier(identifier, id string) (*models.User, e
 func (r *userRepository) GetPartialsByIdentifier(identifier, id string) (*models.User, error) {
 	var user models.User
 
-	res := r.db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at", "calling_code").Where(identifier, id).First(&user)
+	res := r.db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at").Where(identifier, id).First(&user)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return nil, errors.New("no user exists with the provided credentials")

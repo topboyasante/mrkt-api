@@ -109,9 +109,6 @@ func (s *userService) UpdateUserDetails(id string, data *dto.UpdateUserRequest) 
 	if data.CountryCode != "" {
 		user.CountryCode = data.CountryCode
 	}
-	if data.CallingCode != "" {
-		user.CallingCode = data.CallingCode
-	}
 	
 	res, err := s.repo.Update(user)
 	if err != nil {

@@ -32,7 +32,7 @@ func (r *listingRepository) GetAll() ([]models.Listing, error) {
 	var listings []models.Listing
 
 	res := r.db.Preload("User", func(db *gorm.DB) *gorm.DB {
-		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at", "calling_code")
+		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at")
 	}).Find(&listings)
 	if res.Error != nil {
 		utils.Logger().Error("error getting listings: ", res.Error)
@@ -46,7 +46,7 @@ func (r *listingRepository) GetAllByIdentifier(identifier, id any) ([]models.Lis
 	var listings []models.Listing
 
 	res := r.db.Preload("User", func(db *gorm.DB) *gorm.DB {
-		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at", "calling_code")
+		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at")
 	}).Where(identifier, id).Find(&listings)
 
 	if res.Error != nil {
@@ -61,7 +61,7 @@ func (r *listingRepository) GetOneByIdentifier(identifier, id any) (*models.List
 	var listing models.Listing
 
 	res := r.db.Preload("User", func(db *gorm.DB) *gorm.DB {
-		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at", "calling_code")
+		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at")
 	}).Where(identifier, id).First(&listing)
 	if res.Error != nil {
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
@@ -78,7 +78,7 @@ func (r *listingRepository) SearchListings(query string) ([]models.Listing, erro
 	var listings []models.Listing
 
 	res := r.db.Preload("User", func(db *gorm.DB) *gorm.DB {
-		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at", "calling_code")
+		return db.Select("id", "first_name", "last_name", "email", "phone_number", "created_at")
 	}).Where("title ILIKE ?", "%"+query+"%").Find(&listings)
 	if res.Error != nil {
 		utils.Logger().Error("error retrieving listings: ", res.Error)

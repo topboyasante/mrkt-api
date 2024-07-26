@@ -107,7 +107,6 @@ func (s *authService) SignUp(r dto.SignUpRequest) (*dto.SignUpResponse, error) {
 		Email:       r.Email,
 		Password:    string(hashedPassword),
 		CountryCode: r.CountryCode,
-		CallingCode: r.CallingCode,
 		AuthToken:   0,
 	}
 
