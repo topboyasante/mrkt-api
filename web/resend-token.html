@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap);
+    </style>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
+      .content {
+        padding: 20px;
+        text-align: left;
+      }
+      .content h2 {
+        color: #333333;
+      }
+      .content p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #666666;
+      }
+      .code {
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 18px;
+        letter-spacing: 2px;
+      }
+      .footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #f4f4f4;
+        font-size: 12px;
+        color: #999999;
+      }
+    </style>
+    <style type="text/css">
+      a,
+      span,
+      td,
+      th {
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td class="content">
+          <h2>Hello, {{ .Name}} 👋!</h2>
+          <p>
+           Here's your authentication code:
+          </p>
+          <span class="code">{{ .AuthToken}}</span>
+          <p>
+            If you did not request for this code, please disregard this
+            email.
+          </p>
+          <p>
+            Best regards,<br />
+            MRKT
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="footer">&copy; 2024 MRKT. All rights reserved.</td>
+      </tr>
+    </table>
+  </body>
+</html>

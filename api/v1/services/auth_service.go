@@ -24,6 +24,7 @@ type AuthService interface {
 	ForgotPassword(r dto.TokenRequest) error
 	ResetPassword(r dto.ResetPasswordRequest) error
 	RefreshAccessToken(r dto.RefreshAccessTokenRequest) (*dto.RefreshAccessTokenResponse, error)
+	ResendAuthToken(r string) error 
 }
 
 type authService struct {
@@ -283,4 +284,40 @@ func (s *authService) RefreshAccessToken(refreshAccessTokenRequest dto.RefreshAc
 	}
 
 	return res, nil
+}
+
+func (s *authService) ResendAuthToken(e string) error {
+	err := s.validator.Var(e, "required")
+	if err != nil {
+		return err
+	}
+
+	usr, err := s.repo.GetPartialsByIdentifier("e", e)
+	if err != nil {
+		return err
+	}
+
+	usr.AuthToken = auth.GenerateAuthToken()
+
+	res, err := s.repo.Update(usr)
+	if err != nil {
+		return err
+	}
+
+	err = email.SendMailWithSMTP(
+		email.EmailConfig,
+		"Nana from MRKT",
+		"Your Authentication Code",
+		"web/resend-token.html",
+		struct {
+			Name      string
+			AuthToken int
+		}{Name: usr.FirstName, AuthToken: res.AuthToken},
+		[]string{usr.Email},
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

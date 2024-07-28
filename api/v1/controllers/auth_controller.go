@@ -169,3 +169,28 @@ func (c *AuthController) RefreshAccessToken(ctx *gin.Context) {
 		Data: res,
 	})
 }
+
+func (c *AuthController) ResendAuthToken(ctx *gin.Context) {
+	var email string
+
+	if err := ctx.Bind(&email); err != nil {
+		utils.Logger().Error(err)
+		ctx.JSON(http.StatusOK, types.APIError{
+			Message: "unable to parse request body",
+		})
+		return
+	}
+
+	err := c.service.ResendAuthToken(email)
+	if err != nil {
+		utils.Logger().Error(err)
+		ctx.JSON(http.StatusUnauthorized, types.APIError{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, types.APISuccess{
+		Message: "auth token has been resent",
+	})
+}

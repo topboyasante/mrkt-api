@@ -22,4 +22,5 @@ func AuthRoutes(r *gin.RouterGroup, validator *validator.Validate) {
 	authRoutes.POST("/forgot-password", authController.ForgotPassword)
 	authRoutes.POST("/reset-password", authController.ResetPassword)
 	authRoutes.POST("/refresh-token", authController.RefreshAccessToken)
+	authRoutes.POST("/resend-token", authController.ResendAuthToken)
 }
