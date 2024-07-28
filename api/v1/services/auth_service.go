@@ -24,7 +24,7 @@ type AuthService interface {
 	ForgotPassword(r dto.TokenRequest) error
 	ResetPassword(r dto.ResetPasswordRequest) error
 	RefreshAccessToken(r dto.RefreshAccessTokenRequest) (*dto.RefreshAccessTokenResponse, error)
-	ResendAuthToken(r string) error 
+	ResendAuthToken(r dto.ResendTokenRequest) error
 }
 
 type authService struct {
@@ -51,6 +51,28 @@ func (s *authService) SignIn(r dto.SignInRequest) (*dto.SignInResponse, error) {
 	}
 
 	if !usr.IsActive {
+		usr.AuthToken = auth.GenerateAuthToken()
+		_, err = s.repo.Update(usr)
+		if err != nil {
+			return nil, err
+		}
+
+		err = email.SendMailWithSMTP(
+			email.EmailConfig,
+			"Nana from MRKT",
+			"Your Activation Code",
+			"web/resend-activation-code.html",
+			struct {
+				Name      string
+				Email     string
+				AuthToken int
+			}{Name: usr.FirstName, AuthToken: usr.AuthToken, Email: usr.Email},
+			[]string{usr.Email},
+		)
+		if err != nil {
+			return nil, err
+		}
+
 		return nil, errors.New("account has not been activated")
 	}
 
@@ -286,13 +308,13 @@ func (s *authService) RefreshAccessToken(refreshAccessTokenRequest dto.RefreshAc
 	return res, nil
 }
 
-func (s *authService) ResendAuthToken(e string) error {
-	err := s.validator.Var(e, "required")
+func (s *authService) ResendAuthToken(req dto.ResendTokenRequest) error {
+	err := s.validator.Struct(req)
 	if err != nil {
 		return err
 	}
 
-	usr, err := s.repo.GetByIdentifier("email", e)
+	usr, err := s.repo.GetByIdentifier("email", req.Email)
 	if err != nil {
 		return err
 	}
@@ -304,17 +326,34 @@ func (s *authService) ResendAuthToken(e string) error {
 		return err
 	}
 
-	err = email.SendMailWithSMTP(
-		email.EmailConfig,
-		"Nana from MRKT",
-		"Your Authentication Code",
-		"web/resend-token.html",
-		struct {
-			Name      string
-			AuthToken int
-		}{Name: usr.FirstName, AuthToken: res.AuthToken},
-		[]string{usr.Email},
-	)
+	switch req.Type {
+	case "account_activation":
+		err = email.SendMailWithSMTP(
+			email.EmailConfig,
+			"Nana from MRKT",
+			"Your Activation Code",
+			"web/resend-activation-code.html",
+			struct {
+				Name      string
+				Email     string
+				AuthToken int
+			}{Name: usr.FirstName, AuthToken: res.AuthToken, Email: res.Email},
+			[]string{usr.Email},
+		)
+	case "forgot_password":
+		err = email.SendMailWithSMTP(
+			email.EmailConfig,
+			"Nana from MRKT",
+			"Reset Your Password",
+			"web/reset-password.html",
+			struct {
+				Name      string
+				AuthToken int
+			}{Name: usr.FirstName, AuthToken: res.AuthToken},
+			[]string{usr.Email},
+		)
+	}
+
 	if err != nil {
 		return err
 	}

@@ -171,9 +171,9 @@ func (c *AuthController) RefreshAccessToken(ctx *gin.Context) {
 }
 
 func (c *AuthController) ResendAuthToken(ctx *gin.Context) {
-	var email string
+	var body dto.ResendTokenRequest
 
-	if err := ctx.Bind(&email); err != nil {
+	if err := ctx.Bind(&body); err != nil {
 		utils.Logger().Error(err)
 		ctx.JSON(http.StatusOK, types.APIError{
 			Message: "unable to parse request body",
@@ -181,7 +181,7 @@ func (c *AuthController) ResendAuthToken(ctx *gin.Context) {
 		return
 	}
 
-	err := c.service.ResendAuthToken(email)
+	err := c.service.ResendAuthToken(body)
 	if err != nil {
 		utils.Logger().Error(err)
 		ctx.JSON(http.StatusUnauthorized, types.APIError{

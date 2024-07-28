@@ -27,6 +27,10 @@ type SignInRequest struct {
 type TokenRequest struct {
 	Email string `json:"email" form:"email" validate:"required,email"`
 }
+type ResendTokenRequest struct {
+	Email string `json:"email" form:"email" validate:"required,email"`
+	Type  string `json:"reset_type" form:"reset_type"`
+}
 
 type SignUpResponse struct {
 	ID          string    `json:"id" form:"id"`
