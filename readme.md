@@ -23,5 +23,5 @@ MRKT is a marketplace for people to share products they want to sell. Potential 
 ### How to set up
 1. Clone the repository
 2. Fill in your environment variables
-3. Spin up a PostgreSQL DB by removing the comments from the `docker-composr.yml` file
+3. Spin up a PostgreSQL DB by removing the comments from the `docker-compose.yml` file
 4. Run app with `docker compose up --build`
