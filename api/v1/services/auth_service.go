@@ -292,7 +292,7 @@ func (s *authService) ResendAuthToken(e string) error {
 		return err
 	}
 
-	usr, err := s.repo.GetPartialsByIdentifier("email", e)
+	usr, err := s.repo.GetByIdentifier("email", e)
 	if err != nil {
 		return err
 	}
