@@ -1,6 +1,6 @@
 # MRKT
 
-MRKT is a marketplace for people to share products they want to sell. Potential buyers can reach out to you via `call` or `whatsapp` and discussions can be taken from there.
+MRKT is a marketplace for people to share products they want to sell. Potential buyers can reach out to you via `call` or `whatsapp` and discussions can be taken from there. Open Source, Open Code.
 
 ### Stack
   - Frontend: React, NextJS, TypeScript
